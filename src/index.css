@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+:root {
+  --obsidian: #06060A;
+  --graphite: #0E0E14;
+  --panel: #14141C;
+  --hairline: #1E1E28;
+  --edge: #2E2E3C;
+  --bone: #F2EFE8;
+  --muted: #8A8A96;
+  --ember: #FF3B2F;
+  --ember-glow: #FF6B5F;
+  /* legacy aliases */
+  --abyss: var(--obsidian);
+  --deep: var(--graphite);
+  --forest: var(--hairline);
+  --moss: var(--edge);
+  --cream: var(--bone);
+  --cream-dim: var(--muted);
+  --amber: var(--ember);
+  --amber-bright: var(--ember-glow);
+}
+html, body {
+  background: var(--obsidian);
+  color: var(--bone);
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body {
+  overflow-x: clip;
+}
+.font-serif, .font-display {
+  font-family: 'Instrument Serif', 'Fraunces', serif;
+  font-optical-sizing: auto;
+  letter-spacing: -0.01em;
+}
+.font-mono { font-family: 'JetBrains Mono', monospace; }
+::selection {
+  background: var(--ember);
+  color: var(--bone);
+}
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--obsidian); }
+::-webkit-scrollbar-thumb { background: var(--hairline); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--edge); }
+/* Reveal masks */
+.reveal-mask { overflow: hidden; display: inline-block; vertical-align: bottom; }
+/* Film grain (SVG noise) */
+.noise-layer {
+  position: fixed;
+  inset: -50%;
+  pointer-events: none;
+  z-index: 90;
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.95 0 0 0 0 0.94 0 0 0 0 0.91 0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation: grain 8s steps(10) infinite;
+}
+/* Vignette utility */
+.vignette::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(6,6,10,0.85) 100%);
+}
+/* Masked text reveal container */
+.mask-reveal {
+  display: inline-block;
+  overflow: hidden;
+}
+.mask-reveal > span {
+  display: inline-block;
+  transform: translateY(110%);
+  animation: rise 1s cubic-bezier(0.22,1,0.36,1) forwards;
+}
+@keyframes rise { to { transform: translateY(0); } }
+/* Magnetic button glow */
+.ember-glow {
+  box-shadow: 0 0 0 0 rgba(255,59,47,0.0);
+  transition: box-shadow 0.4s ease;
+}
+.ember-glow:hover {
+  box-shadow: 0 0 40px -8px rgba(255,59,47,0.6), 0 0 80px -20px rgba(255,59,47,0.4);
+}
+/* Marquee container needs duplicated content inside */
+.marquee-track {
+  display: flex;
+  width: max-content;
+}
+/* Hide scrollbar on marquee */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
